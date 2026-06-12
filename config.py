@@ -21,7 +21,7 @@ API_HASH = os.environ.get("API_HASH", "")
 WORKERS = int(os.environ.get("WORKERS", "5"))
 
 DB_URI = os.environ.get("DB_URI", "")
-DB_NAME = os.environ.get("DB_NAME", "yato")
+DB_NAME = os.environ.get("DB_NAME", "narpre")
 
 FSUBS = []  # Force Subscription Channels [channel_id, request_enabled, timer_in_minutes] — configure via bot settings
 # Database Channel (Primary)
