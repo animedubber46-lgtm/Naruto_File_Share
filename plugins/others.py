@@ -292,9 +292,22 @@ async def home(client: Client, query: CallbackQuery):
     buttons = [[InlineKeyboardButton("Help", callback_data = "about"), InlineKeyboardButton("Close", callback_data = "close")]]
     if query.from_user.id in client.admins:
         buttons.insert(0, [InlineKeyboardButton("⛩️ ꜱᴇᴛᴛɪɴɢꜱ ⛩️", callback_data="settings")])
-    await query.message.edit_text(
-        text=client.messages.get('START', 'No Start Message').format(
-            first=query.from_user.first_name,
+    
+    new_text = client.messages.get('START', 'No Start Message').format(
+        first=query.from_user.first_name,
+        last=query.from_user.last_name,
+        username=None if not query.from_user.username else '@' + query.from_user.username,
+        mention=query.from_user.mention,
+        id=query.from_user.id
+    )
+    
+    if query.message.text != new_text:
+        await query.message.edit_text(
+            text=new_text,
+            reply_markup=InlineKeyboardMarkup(buttons)
+        )
+    else:
+        await query.answer("Already on this page", show_alert=False)
             last=query.from_user.last_name,
             username=None if not query.from_user.username else '@' + query.from_user.username,
             mention=query.from_user.mention,
